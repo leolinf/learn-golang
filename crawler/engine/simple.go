@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"imooc.com/joizhang/learn-golang/crawler/fetcher"
-	"imooc.com/joizhang/learn-golang/crawler/types"
+	"learn-golang/crawler/fetcher"
+	"learn-golang/crawler/types"
 	"log"
 )
 
