@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"testing"
@@ -41,8 +42,9 @@ func TestGenerateNewUser(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	user := "admin"
-	password := generatePassword()
+	user := "wayfarer"
+	// password := generatePassword()
+	password := "wayfarer2020"
 	savePassword, err := HashUserPassword(salt, password)
 	if err != nil {
 		t.Fatal(err)
@@ -102,4 +104,34 @@ func TestHashUserPassword(t *testing.T) {
 			So(err, ShouldBeNil)
 		})
 	})
+}
+
+type Message struct {
+	Name string `json:"name,omitempty"`
+	Sex  string `json:"sex,omitempty"`
+	Age  int    `json:"age,omitempty"`
+}
+
+func (m *Message) GetName() string {
+	return m.Name
+}
+func (m *Message) GetSex() string {
+	return m.Sex
+}
+
+type NewMessage interface {
+	GetName() (Name string)
+	GetSex() (Sex string)
+}
+
+func TestZhuan(t *testing.T) {
+	a := `{"name": "laowang", "sex": "man", "age": 10}`
+	var test Message
+	_ = json.Unmarshal([]byte(a), &test)
+	var bb NewMessage
+	bb = &test
+	fmt.Println(bb.GetName())
+
+	aa := bb.(*Message)
+	fmt.Printf("aa: %+v", aa)
 }
